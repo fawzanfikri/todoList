@@ -16,7 +16,7 @@ class TodoAdapter (
     :  RecyclerView.Adapter<TodoAdapter.TodoViewHolder>()
 
 {
-    class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) //for hold the view.
+    class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) //for hold the view. Just tunjuk apa yg patut di view (RecycleView)
 
     //Ctrl + i to generate function
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -28,6 +28,18 @@ class TodoAdapter (
 
             )
         )
+    }
+
+    fun addTodo(todo: Todo){  //add Todo
+        todos.add(todo)
+        notifyItemInserted(todos.size - 1)
+    }
+
+    fun deleteDoneTodos(){
+        todos.removeAll { todo ->
+            todo.isChecked //just remove yg dicheck sahaja
+        }
+        notifyDataSetChanged()
     }
 
     private fun toggleStrikeThrough(tvTodoTitle: TextView, isChecked: Boolean){ //text view that we want to strike through
