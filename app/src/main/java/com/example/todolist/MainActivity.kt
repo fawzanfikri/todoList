@@ -15,10 +15,10 @@ class MainActivity : AppCompatActivity() {
         todoAdapter = TodoAdapter(mutableListOf())
 
         rvTodoItems.adapter = todoAdapter
-        rvTodoItems.layoutManager = LinearLayoutManager(this)  //utk view layout
+        rvTodoItems.layoutManager = LinearLayoutManager(this)
 
         btnAddTodo.setOnClickListener {
-            val todoTitle = etTodoTitle.text.toString() //declare input user as text
+            val todoTitle = etTodoTitle.text.toString()
             if (todoTitle.isNotEmpty()){
                 val todo = Todo(todoTitle)
                 todoAdapter.addTodo(todo)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
         
         btnDeleteTodo.setOnClickListener {
-            todoAdapter.deleteDoneTodos() 
+            todoAdapter.deleteDoneTodos()
         }
 
     }

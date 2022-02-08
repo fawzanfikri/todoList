@@ -16,49 +16,49 @@ class TodoAdapter (
     :  RecyclerView.Adapter<TodoAdapter.TodoViewHolder>()
 
 {
-    class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) //for hold the view. Just tunjuk apa yg patut di view (RecycleView)
+    class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     //Ctrl + i to generate function
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
-            LayoutInflater.from(parent.context).inflate( //to convert xml to kotlin
-                R.layout.item_todo, //layout page name
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_todo,
                 parent,
-                false // no need to attach the layout to the root
+                false
 
             )
         )
     }
 
-    fun addTodo(todo: Todo){  //add Todo
+    fun addTodo(todo: Todo){
         todos.add(todo)
         notifyItemInserted(todos.size - 1)
     }
 
     fun deleteDoneTodos(){
         todos.removeAll { todo ->
-            todo.isChecked //just remove yg dicheck sahaja
+            todo.isChecked
         }
         notifyDataSetChanged()
     }
 
-    private fun toggleStrikeThrough(tvTodoTitle: TextView, isChecked: Boolean){ //text view that we want to strike through
+    private fun toggleStrikeThrough(tvTodoTitle: TextView, isChecked: Boolean){
 
         if (isChecked){
-            tvTodoTitle.paintFlags = tvTodoTitle.paintFlags or STRIKE_THRU_TEXT_FLAG //make a strike
+            tvTodoTitle.paintFlags = tvTodoTitle.paintFlags or STRIKE_THRU_TEXT_FLAG
         }else{
-            tvTodoTitle.paintFlags = tvTodoTitle.paintFlags and STRIKE_THRU_TEXT_FLAG.inv() //remove strike
+            tvTodoTitle.paintFlags = tvTodoTitle.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
         }
 
     }
 
-    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) { //interact with ui
-        val curTodo = todos[position]   //widget yg digunakan
+    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
+        val curTodo = todos[position]
         holder.itemView.apply {
             tvTodoTitle.text = curTodo.title
             cbDone.isChecked = curTodo.isChecked
             toggleStrikeThrough(tvTodoTitle, curTodo.isChecked)
-            cbDone.setOnCheckedChangeListener { _, isChecked ->  //letak _ sbb x guna parameter tu
+            cbDone.setOnCheckedChangeListener { _, isChecked ->
                 toggleStrikeThrough(tvTodoTitle, isChecked)
                 curTodo.isChecked = !curTodo.isChecked
             }
@@ -66,6 +66,6 @@ class TodoAdapter (
     }
 
     override fun getItemCount(): Int {
-        return todos.size //data from todoList
+        return todos.size
     }
 }
